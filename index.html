@@ -7,27 +7,36 @@
 </head>
 <body>
     <h1>Postal Code Lookup</h1>
-    <form id="lookupForm" action="lookup.php" method="post">
-        <label for="postalCode">Enter Postal Code:</label>
-        <input type="text" id="postalCode" name="postalCode" required>
-        <button type="submit">Submit</button>
-    </form>
-    <div id="postalCodeDisplay"></div>
+    <label for="postalCodeInput">Enter Postal Code:</label>
+    <input type="text" id="postalCodeInput">
+    <button onclick="lookupPostalCode()">Lookup</button>
+    <p id="result"></p>
 
     <script>
-        document.getElementById('lookupForm').addEventListener('submit', function(event) {
-            // Prevent the form from submitting
-            event.preventDefault();
+        function lookupPostalCode() {
+            // Get the input value
+            var postalCode = document.getElementById("postalCodeInput").value.trim();
             
-            // Get the postal code value
-            var postalCode = document.getElementById('postalCode').value;
+            // Read the list of postal codes from the text file
+            fetch('postal_codes.txt')
+                .then(response => response.text())
+                .then(data => {
+                    // Split the data into an array of postal codes
+                    var postalCodes = data.split('\n').map(code => code.trim());
 
-            // Display the postal code on the webpage
-            document.getElementById('postalCodeDisplay').textContent = 'Entered Postal Code: ' + postalCode;
-            
-            // Submit the form programmatically
-            this.submit();
-        });
+                    // Check if the input postal code exists in the list
+                    var found = postalCodes.includes(postalCode);
+
+                    // Display the result
+                    var resultElement = document.getElementById("result");
+                    if (found) {
+                        resultElement.textContent = "Postal code found!";
+                    } else {
+                        resultElement.textContent = "Postal code not found!";
+                    }
+                })
+                .catch(error => console.error('Error reading file:', error));
+        }
     </script>
 </body>
 </html>
