@@ -1,42 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Postal Code Lookup</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Postal Code Lookup</title>
 </head>
 <body>
-    <h1>Postal Code Lookup</h1>
-    <label for="postalCodeInput">Enter Postal Code:</label>
-    <input type="text" id="postalCodeInput">
-    <button onclick="lookupPostalCode()">Lookup</button>
-    <p id="result"></p>
+  <h1>Postal Code Lookup</h1>
+  <form id="lookupForm">
+    <label for="postalCode">Enter Postal Code:</label>
+    <input type="text" id="postalCode" name="postalCode">
+    <button type="button" onclick="lookupPostalCode()">Lookup</button>
+  </form>
+  <div id="result"></div>
 
-    <script>
-        function lookupPostalCode() {
-            // Get the input value
-            var postalCode = document.getElementById("postalCodeInput").value.trim();
-            
-            // Read the list of postal codes from the text file
-           fetch('postal_codes.txt')
-    .then(response => response.text())
-    .then(data => {
-        // Split the data into an array of postal codes
-        var postalCodes = data.split('\n').map(code => code.trim());
-        
-        // Get the postal code entered by the user
-        var enteredPostalCode = document.getElementById('postalCodeInput').value.trim();
-        
-        // Check if the entered postal code exists in the array
-        if (postalCodes.includes(enteredPostalCode)) {
-            document.getElementById('message').textContent = 'Postal code found!';
-        } else {
-            document.getElementById('message').textContent = 'Postal code not found';
-        }
-    })
-    .catch(error => console.error('Error reading file:', error));
-
-        }
-    </script>
+  <script src="script.js"></script>
 </body>
 </html>
