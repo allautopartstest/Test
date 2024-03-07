@@ -1,25 +1,19 @@
-document.getElementById("lookupForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent form submission
+function lookupPostalCode() {
+  var postalCode = document.getElementById("postalCode").value.toUpperCase();
+  var postalCodes = ["A1A 1A1", "B2B 2B2", "C3C 3C3"]; // Sample postal codes
+  
+  var found = false;
+  for (var i = 0; i < postalCodes.length; i++) {
+    if (postalCode === postalCodes[i]) {
+      found = true;
+      break;
+    }
+  }
+  
+  if (found) {
+    document.getElementById("result").innerHTML = "Postal code found: " + postalCode;
+  } else {
+    document.getElementById("result").innerHTML = "Postal code not found: " + postalCode;
+  }
+}
 
-    // Get the entered postal code
-    var postalCode = document.getElementById("postalCode").value;
-
-    // Send a POST request to the PHP script
-    fetch("lookup.php", {
-        method: "POST",
-        body: new URLSearchParams({
-            postalCode: postalCode
-        }),
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        }
-    })
-    .then(response => response.text())
-    .then(data => {
-        // Display the result in the HTML element
-        document.getElementById("result").innerText = data;
-    })
-    .catch(error => {
-        console.error("Error:", error);
-    });
-});
