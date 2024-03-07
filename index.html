@@ -7,10 +7,27 @@
 </head>
 <body>
     <h1>Postal Code Lookup</h1>
-    <form action="lookup.php" method="post">
+    <form id="lookupForm" action="lookup.php" method="post">
         <label for="postalCode">Enter Postal Code:</label>
         <input type="text" id="postalCode" name="postalCode" required>
         <button type="submit">Submit</button>
     </form>
+    <div id="postalCodeDisplay"></div>
+
+    <script>
+        document.getElementById('lookupForm').addEventListener('submit', function(event) {
+            // Prevent the form from submitting
+            event.preventDefault();
+            
+            // Get the postal code value
+            var postalCode = document.getElementById('postalCode').value;
+
+            // Display the postal code on the webpage
+            document.getElementById('postalCodeDisplay').textContent = 'Entered Postal Code: ' + postalCode;
+            
+            // Submit the form programmatically
+            this.submit();
+        });
+    </script>
 </body>
 </html>
