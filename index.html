@@ -18,24 +18,24 @@
             var postalCode = document.getElementById("postalCodeInput").value.trim();
             
             // Read the list of postal codes from the text file
-            fetch('postal_codes.txt')
-                .then(response => response.text())
-                .then(data => {
-                    // Split the data into an array of postal codes
-                    var postalCodes = data.split('\n').map(code => code.trim());
+           fetch('postal_codes.txt')
+    .then(response => response.text())
+    .then(data => {
+        // Split the data into an array of postal codes
+        var postalCodes = data.split('\n').map(code => code.trim());
+        
+        // Get the postal code entered by the user
+        var enteredPostalCode = document.getElementById('postalCodeInput').value.trim();
+        
+        // Check if the entered postal code exists in the array
+        if (postalCodes.includes(enteredPostalCode)) {
+            document.getElementById('message').textContent = 'Postal code found!';
+        } else {
+            document.getElementById('message').textContent = 'Postal code not found';
+        }
+    })
+    .catch(error => console.error('Error reading file:', error));
 
-                    // Check if the input postal code exists in the list
-                    var found = postalCodes.includes(postalCode);
-
-                    // Display the result
-                    var resultElement = document.getElementById("result");
-                    if (found) {
-                        resultElement.textContent = "Postal code found!";
-                    } else {
-                        resultElement.textContent = "Postal code not found!";
-                    }
-                })
-                .catch(error => console.error('Error reading file:', error));
         }
     </script>
 </body>
